@@ -28,15 +28,19 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/register")
-    public ModelAndView getRegisterSeller(ModelAndView modelAndView) {
+    public ModelAndView register(ModelAndView modelAndView) {
         modelAndView.addObject("roles", roleService.getAllRoles());
         return super.view("auth-register", modelAndView);
     }
 
     @PostMapping("/register")
     public ModelAndView registerConfirm(@ModelAttribute(name = "model") UserRegisterBindingModel model) {
-        UserRegisterBindingModel model1 = model;
         this.userService.register(modelMapper.map(model, UserServiceModel.class));
         return super.redirect("/");
+    }
+
+    @GetMapping("/login")
+    public ModelAndView login() {
+        return super.view("auth-login");
     }
 }
