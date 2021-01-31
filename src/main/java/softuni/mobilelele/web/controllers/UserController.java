@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import softuni.mobilelele.domain.models.binding.UserLoginBindingModel;
 import softuni.mobilelele.domain.models.binding.UserRegisterBindingModel;
 import softuni.mobilelele.domain.models.service.UserServiceModel;
+import softuni.mobilelele.security.CurrentUser;
 import softuni.mobilelele.service.RoleService;
 import softuni.mobilelele.service.UserService;
 
@@ -21,7 +23,7 @@ public class UserController extends BaseController {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserController(RoleService roleService, UserService userService, ModelMapper modelMapper) {
+    public UserController(RoleService roleService, UserService userService, ModelMapper modelMapper, CurrentUser currentUser) {
         this.roleService = roleService;
         this.userService = userService;
         this.modelMapper = modelMapper;
@@ -42,5 +44,15 @@ public class UserController extends BaseController {
     @GetMapping("/login")
     public ModelAndView login() {
         return super.view("auth-login");
+    }
+
+    @PostMapping("/login")
+    public ModelAndView loginConfirm(@ModelAttribute UserLoginBindingModel userLoginBindingModel) {
+        if (userService.authenticate(userLoginBindingModel.getUsername(),
+                userLoginBindingModel.getPassword())) {
+            userService.loginUser(userLoginBindingModel.getUsername());
+            return super.redirect("/");
+        }
+        return super.redirect("/users/login");
     }
 }
