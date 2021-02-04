@@ -16,6 +16,7 @@ import java.util.Set;
 public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String username;
+    @Column
     private String password;
     @Column(name = "first_name")
     private String firstName;

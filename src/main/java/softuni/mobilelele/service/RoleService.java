@@ -1,5 +1,6 @@
 package softuni.mobilelele.service;
 
+import softuni.mobilelele.domain.entities.enums.UserRoleEnum;
 import softuni.mobilelele.domain.models.service.RoleServiceModel;
 import softuni.mobilelele.domain.models.view.RoleViewModel;
 
@@ -12,5 +13,5 @@ public interface RoleService {
 
     Set<RoleServiceModel> findAllRoles();
 
-    RoleServiceModel findByAuthority(String role);
+    RoleServiceModel findByAuthority(UserRoleEnum role);
 }

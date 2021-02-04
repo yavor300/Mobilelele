@@ -67,13 +67,13 @@ public class DataInit implements CommandLineRunner {
             modelRepository.saveAndFlush(modelX);
         }
 
-        if (userRepository.count() == 1) {
-            User admin = new User();
-            admin.setFirstName("Peter");
-            admin.setLastName("Dimitrov");
-            admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("topsecret"));
-            userRepository.saveAndFlush(admin);
-        }
+//        if (userRepository.count() == 1) {
+//            User admin = new User();
+//            admin.setFirstName("Peter");
+//            admin.setLastName("Dimitrov");
+//            admin.setUsername("admin");
+//            admin.setPassword(passwordEncoder.encode("topsecret"));
+//            userRepository.saveAndFlush(admin);
+//        }
     }
 }

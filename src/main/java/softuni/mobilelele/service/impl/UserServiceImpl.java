@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import softuni.mobilelele.domain.entities.User;
+import softuni.mobilelele.domain.entities.enums.UserRoleEnum;
 import softuni.mobilelele.domain.models.service.UserServiceModel;
 import softuni.mobilelele.repository.UserRepository;
 import softuni.mobilelele.security.CurrentUser;
@@ -39,12 +40,13 @@ public class UserServiceImpl implements UserService {
             userServiceModel.setRoles(roleService.findAllRoles());
         } else {
             userServiceModel.setRoles(new LinkedHashSet<>());
-            userServiceModel.getRoles().add(roleService.findByAuthority("ROLE_USER"));
+            userServiceModel.getRoles().add(roleService.findByAuthority(UserRoleEnum.ROLE_USER));
         }
 
         userServiceModel.setActive(true);
         userServiceModel.setCreated(LocalDateTime.now());
         userServiceModel.setModified(LocalDateTime.now());
+        userServiceModel.setPassword(passwordEncoder.encode(userServiceModel.getPassword()));
 
         User user = modelMapper.map(userServiceModel, User.class);
 

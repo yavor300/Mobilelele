@@ -3,6 +3,7 @@ package softuni.mobilelele.domain.models.service;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import softuni.mobilelele.domain.entities.enums.UserRoleEnum;
 
 import java.util.Set;
 
@@ -11,6 +12,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class RoleServiceModel {
     private String id;
-    private String authority;
+    private UserRoleEnum role;
     private Set<UserServiceModel> users;
 }

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softuni.mobilelele.domain.entities.Role;
+import softuni.mobilelele.domain.entities.enums.UserRoleEnum;
 import softuni.mobilelele.domain.models.service.RoleServiceModel;
 import softuni.mobilelele.domain.models.view.RoleViewModel;
 import softuni.mobilelele.repository.RoleRepository;
@@ -26,8 +27,8 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void seedRolesInDb() {
         if (this.roleRepository.count() == 0){
-            this.roleRepository.saveAndFlush(new Role("ROLE_ADMIN"));
-            this.roleRepository.saveAndFlush(new Role("ROLE_USER"));
+            this.roleRepository.saveAndFlush(new Role(UserRoleEnum.ROLE_ADMIN));
+            this.roleRepository.saveAndFlush(new Role(UserRoleEnum.ROLE_USER));
         }
     }
 
@@ -47,7 +48,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleServiceModel findByAuthority(String role) {
-        return modelMapper.map(roleRepository.findByAuthority(role), RoleServiceModel.class);
+    public RoleServiceModel findByAuthority(UserRoleEnum role) {
+        return modelMapper.map(roleRepository.findByRole(role), RoleServiceModel.class);
     }
 }
