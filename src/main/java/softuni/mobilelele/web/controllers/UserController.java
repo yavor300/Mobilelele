@@ -55,4 +55,10 @@ public class UserController extends BaseController {
         }
         return super.redirect("/users/login");
     }
+
+    @PostMapping("/logout")
+    public ModelAndView logoutConfirm () {
+        userService.logout();
+        return super.redirect("/");
+    }
 }
