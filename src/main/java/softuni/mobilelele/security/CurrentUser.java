@@ -9,7 +9,7 @@ public class CurrentUser {
     private static final String ANONYMOUS = "anonymous";
 
     private String name = ANONYMOUS;
-    private boolean isAnonymous;
+    private boolean isAnonymous = true;
 
     public String getName() {
         return name;
@@ -17,6 +17,10 @@ public class CurrentUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isLoggedIn() {
+        return !isAnonymous();
     }
 
     public boolean isAnonymous() {
