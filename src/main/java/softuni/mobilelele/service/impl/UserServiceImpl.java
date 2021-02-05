@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import softuni.mobilelele.domain.entities.Role;
 import softuni.mobilelele.domain.entities.User;
 import softuni.mobilelele.domain.entities.enums.UserRoleEnum;
 import softuni.mobilelele.domain.models.service.UserServiceModel;
@@ -14,7 +15,9 @@ import softuni.mobilelele.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -65,8 +68,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void loginUser(String username) {
+
+        User user = userRepository.findByUsername(username).orElseThrow();
+
+        List<UserRoleEnum> userRoles = user
+                .getRoles()
+                .stream()
+                .map(Role::getRole)
+                .collect(Collectors.toList());
+
         currentUser.setAnonymous(false);
-        currentUser.setName(username);
+        currentUser.setName(user.getUsername());
+        currentUser.setUserRoles(userRoles);
     }
 
     @Override
