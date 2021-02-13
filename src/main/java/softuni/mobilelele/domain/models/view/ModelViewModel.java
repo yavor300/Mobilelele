@@ -9,6 +9,7 @@ import softuni.mobilelele.domain.entities.enums.CategoryType;
 @Setter
 @NoArgsConstructor
 public class ModelViewModel {
+    private String id;
     private String name;
     private CategoryType category;
     private Integer startYear;
